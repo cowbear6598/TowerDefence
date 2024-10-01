@@ -1,15 +1,13 @@
 {
   "dependencies": {
-    "com.unity.collab-proxy": "2.5.2",
+    "com.soap.soap-tools": "https://github.com/cowbear6598/SoapTools.git?path=Assets/SoapTools",
     "com.unity.ide.rider": "3.0.28",
-    "com.unity.ide.visualstudio": "2.0.22",
-    "com.unity.ide.vscode": "1.2.5",
     "com.unity.render-pipelines.universal": "14.0.11",
     "com.unity.test-framework": "1.1.33",
     "com.unity.textmeshpro": "3.0.6",
     "com.unity.timeline": "1.7.6",
     "com.unity.ugui": "1.0.0",
-    "com.unity.visualscripting": "1.9.4",
+    "jp.hadashikick.vcontainer": "https://github.com/hadashiA/VContainer.git?path=VContainer/Assets/VContainer#1.6.3",
     "com.unity.modules.ai": "1.0.0",
     "com.unity.modules.androidjni": "1.0.0",
     "com.unity.modules.animation": "1.0.0",
@@ -41,5 +39,15 @@
     "com.unity.modules.vr": "1.0.0",
     "com.unity.modules.wind": "1.0.0",
     "com.unity.modules.xr": "1.0.0"
-  }
+  },
+  "scopedRegistries": [
+    {
+      "name": "package.openupm.com",
+      "url": "https://package.openupm.com",
+      "scopes": [
+        "com.cysharp.unitask",
+        "com.neuecc.unirx"
+      ]
+    }
+  ]
 }
