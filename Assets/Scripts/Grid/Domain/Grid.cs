@@ -2,13 +2,13 @@
 
 namespace Grid.Domain
 {
-	public class Cell
+	public class Grid
 	{
 		public readonly Vector2Int Position;
 
 		private GameObject OccupyingObject;
 
-		public Cell(Vector2Int position)
+		public Grid(Vector2Int position)
 		{
 			Position = position;
 		}

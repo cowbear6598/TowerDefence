@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "com.soap.soap-tools": "https://github.com/cowbear6598/SoapTools.git?path=Assets/SoapTools",
+    "com.unity.2d.sprite": "1.0.0",
     "com.unity.ide.rider": "3.0.28",
     "com.unity.render-pipelines.universal": "14.0.11",
     "com.unity.test-framework": "1.1.33",

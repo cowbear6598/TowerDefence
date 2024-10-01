@@ -2,6 +2,7 @@
     "name": "Core.Unity.Game",
     "rootNamespace": "",
     "references": [
+        "GUID:b0214a6008ed146ff8f122a6a9c2f6cc",
         "GUID:70a80d764cca9644a8e2d3349f5f7135"
     ],
     "includePlatforms": [],
