@@ -1,12 +1,13 @@
 Shader "Custom/AlwaysOnTop"
 {
-     Properties
+    Properties
     {
         _MainTex ("Texture", 2D) = "white" {}
+        _StencilRef ("Stencil Reference", Float) = 1
     }
     SubShader
     {
-        Tags {"Queue"="Overlay" "RenderType"="Transparent" "RenderPipeline"="UniversalPipeline"}
+        Tags {"Queue"="Transparent+100" "RenderType"="Transparent" "RenderPipeline"="UniversalPipeline"}
         LOD 100
 
         HLSLINCLUDE
@@ -15,10 +16,16 @@ Shader "Custom/AlwaysOnTop"
 
         Pass
         {
-            Name "Unlit"
-            Blend SrcAlpha OneMinusSrcAlpha
+            Stencil {
+                Ref [_StencilRef]
+                Comp Always
+                Pass Replace
+            }
+
+            ZTest Always
             ZWrite Off
             Cull Off
+            Blend SrcAlpha OneMinusSrcAlpha
 
             HLSLPROGRAM
             #pragma vertex vert

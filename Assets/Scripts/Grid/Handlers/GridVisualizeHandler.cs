@@ -84,9 +84,6 @@ namespace Grid.Handlers
 					gridView.transform.localScale = Vector3.one * cellSize;
 
 					_gridViews[x, z] = gridView;
-
-					var index = x + z * width;
-
 				}
 			}
 		}
