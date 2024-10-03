@@ -12,7 +12,7 @@ using Object = UnityEngine.Object;
 
 namespace Grid.Handlers
 {
-	public class GridVisualizeHandler : IInitializable, ITickable, IDisposable
+	public class GridVisualizeHandler : IInitializable, ITickable
 	{
 		[Inject] private readonly Settings  _settings;
 		[Inject] private readonly GridBoard _gridBoard;
@@ -21,10 +21,7 @@ namespace Grid.Handlers
 
 		private GridView[,] _gridViews;
 
-		private NativeArray<GridVisualData> _currentGridVisualData;
-		private NativeArray<GridVisualData> _targetGridVisualData;
-
-		private int _highlightIndex = -1;
+		private GridView _currentGridView;
 
 		public void Initialize()
 		{
@@ -33,8 +30,6 @@ namespace Grid.Handlers
 
 		public void Tick()
 		{
-			UpdateGridVisualJob();
-
 			// TODO: Refactor this to a separate class
 			var cam = Camera.main;
 
@@ -44,11 +39,11 @@ namespace Grid.Handlers
 
 			if (!Physics.Raycast(ray, out var hit, 100f, LayerMask.GetMask(GRID_LAYER_NAME)))
 			{
-				if (_highlightIndex == -1)
+				if (_currentGridView == null)
 					return;
 
-				_targetGridVisualData[_highlightIndex] = new GridVisualData(0.2f, 0);
-				_highlightIndex                        = -1;
+				_currentGridView.Reset();
+				_currentGridView = null;
 
 				return;
 			}
@@ -56,39 +51,15 @@ namespace Grid.Handlers
 			var x = Mathf.FloorToInt(hit.point.x / _gridBoard.CellSize);
 			var z = Mathf.FloorToInt(hit.point.z / _gridBoard.CellSize);
 
-			var newHighlightIndex = x + z * _gridBoard.Width;
+			var newGridView = _gridViews[x, z];
 
-			if (_highlightIndex == newHighlightIndex)
+			if (_currentGridView == newGridView)
 				return;
 
-			if (_highlightIndex != -1)
-				_targetGridVisualData[_highlightIndex] = new GridVisualData(0.2f, 0);
+			_currentGridView?.Reset();
 
-			_highlightIndex = newHighlightIndex;
-
-			_targetGridVisualData[_highlightIndex] = new GridVisualData(1f, 0.5f);
-
-		}
-
-		private void UpdateGridVisualJob()
-		{
-			var job = new GridVisualUpdateJob
-			{
-				CurrentGridVisualData = _currentGridVisualData,
-				TargetGridVisualData  = _targetGridVisualData,
-				LerpSpeed             = 10f,
-				DeltaTime             = Time.deltaTime,
-			};
-
-			var handle = job.Schedule(_currentGridVisualData.Length, 64);
-			handle.Complete();
-
-			for (var i = 0; i < _currentGridVisualData.Length; i++)
-			{
-				var data = _currentGridVisualData[i];
-
-				_gridViews[i % _gridBoard.Width, i / _gridBoard.Width].UpdateVisualData(data);
-			}
+			_currentGridView = newGridView;
+			_currentGridView.Highlight();
 		}
 
 		private void CreateGridView()
@@ -99,8 +70,6 @@ namespace Grid.Handlers
 			var height   = _gridBoard.Height;
 			var cellSize = _gridBoard.CellSize;
 
-			_currentGridVisualData = new NativeArray<GridVisualData>(width * height, Allocator.Persistent);
-			_targetGridVisualData  = new NativeArray<GridVisualData>(width * height, Allocator.Persistent);
 
 			_gridViews = new GridView[width, height];
 
@@ -123,36 +92,7 @@ namespace Grid.Handlers
 
 					var index = x + z * width;
 
-					_currentGridVisualData[index] = new GridVisualData(0.2f, 0);
-					_targetGridVisualData[index]  = new GridVisualData(0.2f, 0);
 				}
-			}
-		}
-
-		public void Dispose()
-		{
-			_currentGridVisualData.Dispose();
-			_targetGridVisualData.Dispose();
-		}
-
-		[BurstCompile]
-		private struct GridVisualUpdateJob : IJobParallelFor
-		{
-			[ReadOnly] public NativeArray<GridVisualData> TargetGridVisualData;
-			[ReadOnly] public float                       LerpSpeed;
-			[ReadOnly] public float                       DeltaTime;
-
-			public NativeArray<GridVisualData> CurrentGridVisualData;
-
-			public void Execute(int index)
-			{
-				var currentData = CurrentGridVisualData[index];
-				var targetData  = TargetGridVisualData[index];
-
-				var alpha = math.lerp(currentData.Alpha, targetData.Alpha, LerpSpeed   * DeltaTime);
-				var y     = math.lerp(currentData.Height, targetData.Height, LerpSpeed * DeltaTime);
-
-				CurrentGridVisualData[index] = new GridVisualData(alpha, y);
 			}
 		}
 
@@ -162,11 +102,8 @@ namespace Grid.Handlers
 			public GridView GridViewPrefab;
 			public float    LerpSpeed = 10;
 
-			public float originalAlpha  = 0.2f;
-			public float highlightAlpha = 1f;
-
-			public float originalHeight  = 0;
-			public float highlightHeight = 0.25f;
+			public Color OriginalColor;
+			public Color HighlightColor;
 		}
 	}
 }

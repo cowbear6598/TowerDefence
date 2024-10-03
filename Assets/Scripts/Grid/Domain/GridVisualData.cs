@@ -1,14 +1,14 @@
-﻿namespace Grid.Domain
+﻿using UnityEngine;
+
+namespace Grid.Domain
 {
 	public struct GridVisualData
 	{
-		public readonly float Alpha;
-		public readonly float Height;
+		public readonly Color Color;
 
-		public GridVisualData(float alpha, float height)
+		public GridVisualData(Color color)
 		{
-			Alpha  = alpha;
-			Height = height;
+			Color = color;
 		}
 	}
 }
