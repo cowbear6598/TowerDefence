@@ -66,7 +66,6 @@ namespace Grid.Handlers
 			var height   = _gridBoard.Height;
 			var cellSize = _gridBoard.CellSize;
 
-
 			_gridViews = new GridView[width, height];
 
 			for (var x = 0; x < width; x++)
