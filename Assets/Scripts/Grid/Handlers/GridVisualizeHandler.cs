@@ -129,7 +129,11 @@ namespace Grid.Handlers
 			}
 		}
 
-		public void Dispose() { }
+		public void Dispose()
+		{
+			_currentGridVisualData.Dispose();
+			_targetGridVisualData.Dispose();
+		}
 
 		[BurstCompile]
 		private struct GridVisualUpdateJob : IJobParallelFor
