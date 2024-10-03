@@ -434,7 +434,7 @@ MonoBehaviour:
       GridViewPrefab: {fileID: 6219909668180639164, guid: 084d35f853d20104e933331c2801ebf6,
         type: 3}
       LerpSpeed: 10
-      OriginalColor: {r: 1, g: 1, b: 1, a: 0.2}
+      OriginalColor: {r: 1, g: 1, b: 1, a: 0}
       HighlightColor: {r: 0.16803133, g: 0.6037736, b: 0.25601777, a: 1}
 --- !u!1 &789932911
 GameObject:

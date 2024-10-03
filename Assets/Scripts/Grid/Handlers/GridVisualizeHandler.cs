@@ -1,10 +1,6 @@
 ﻿using System;
 using Grid.Domain;
 using Grid.Views;
-using Unity.Burst;
-using Unity.Collections;
-using Unity.Jobs;
-using Unity.Mathematics;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
@@ -100,10 +96,6 @@ namespace Grid.Handlers
 		public class Settings
 		{
 			public GridView GridViewPrefab;
-			public float    LerpSpeed = 10;
-
-			public Color OriginalColor;
-			public Color HighlightColor;
 		}
 	}
 }

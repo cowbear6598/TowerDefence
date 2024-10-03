@@ -75,7 +75,7 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6,
     type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.2}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -153,5 +153,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _render: {fileID: 7544898574108295307}
-  _originColor: {r: 1, g: 1, b: 1, a: 0.2}
+  _originColor: {r: 1, g: 1, b: 1, a: 0}
   _highlightColor: {r: 0.11627804, g: 0.6320754, b: 0.17962158, a: 1}
