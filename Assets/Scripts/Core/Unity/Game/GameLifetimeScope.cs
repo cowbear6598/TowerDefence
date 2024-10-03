@@ -14,7 +14,6 @@ namespace Unity.Game
 		protected override void Configure(IContainerBuilder builder)
 		{
 			builder.RegisterInstance(gridSetting.GridSettings);
-			builder.RegisterInstance(gridSetting.GridVisualizeSettings);
 
 			builder.Register<GridBoard>(Lifetime.Singleton);
 			builder.Register<GridVisualizeHandler>(Lifetime.Singleton)
@@ -25,8 +24,7 @@ namespace Unity.Game
 		[Serializable]
 		public class GridSetting
 		{
-			public GridBoard.Settings     GridSettings;
-			public GridVisualizeHandler.Settings GridVisualizeSettings;
+			public GridBoard.Settings GridSettings;
 		}
 	}
 }

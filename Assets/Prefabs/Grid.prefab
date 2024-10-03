@@ -154,4 +154,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _render: {fileID: 7544898574108295307}
   _originColor: {r: 1, g: 1, b: 1, a: 0}
+  _errorColor: {r: 0, g: 0, b: 0, a: 0}
   _highlightColor: {r: 0.11627804, g: 0.6320754, b: 0.17962158, a: 0.4}
