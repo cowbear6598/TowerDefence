@@ -1,4 +1,5 @@
 ﻿using System;
+using Grid.Domain;
 using Grid.Handlers;
 using UnityEngine;
 using VContainer;
@@ -15,7 +16,7 @@ namespace Unity.Game
 			builder.RegisterInstance(gridSetting.GridSettings);
 			builder.RegisterInstance(gridSetting.GridVisualizeSettings);
 
-			builder.Register<Grid.Domain.GridBoard>(Lifetime.Singleton);
+			builder.Register<GridBoard>(Lifetime.Singleton);
 			builder.Register<GridVisualizeHandler>(Lifetime.Singleton)
 			       .AsImplementedInterfaces()
 			       .AsSelf();
@@ -24,7 +25,7 @@ namespace Unity.Game
 		[Serializable]
 		public class GridSetting
 		{
-			public Grid.Domain.GridBoard.Settings     GridSettings;
+			public GridBoard.Settings     GridSettings;
 			public GridVisualizeHandler.Settings GridVisualizeSettings;
 		}
 	}
